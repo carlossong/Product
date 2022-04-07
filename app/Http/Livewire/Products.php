@@ -9,8 +9,11 @@ use Livewire\WithPagination;
 class Products extends Component
 {
 
-    public $form;
+    public Product $form;
     public $openModalCreate = false;
+    public ?Product $productToRemove = null;
+    public $openModalDelete = false;
+
     public $rules = [
         'form.name' => 'required',
         'form.description' => 'required',
@@ -34,6 +37,28 @@ class Products extends Component
     public function save()
     {
         $this->validate();
+        $this->form->save();
+        $this->openModalCreate = false;
+    }
+
+    public function edit(Product $product)
+    {
+        $this->form = $product;
+        $this->openModalCreate = true;
+        $this->clearValidation();
+    }
+
+    public function confirmingProductDeletion(Product $product)
+    {
+        $this->productToRemove = $product;
+        $this->openModalDelete = true;
+
+    }
+
+    public function remove()
+    {
+        $this->productToRemove->delete();
+        $this->openModalDelete = false;
     }
 
     public function render()
