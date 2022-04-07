@@ -2,21 +2,24 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Product as ModelsProduct;
+use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Product extends Component
+class Products extends Component
 {
+
+    public $openModalCreate = true;
+
     use WithPagination;
 
     public function getProductsProperty()
     {
-        return ModelsProduct::latest()->paginate();
+        return Product::latest()->paginate(10);
     }
 
     public function render()
     {
-        return view('livewire.product');
+        return view('livewire.products');
     }
 }

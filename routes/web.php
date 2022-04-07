@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Livewire\Product;
+use App\Http\Livewire\Products;
+use App\Http\Livewire\Users;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,8 @@ Route::middleware([
 
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    Route::get('products', Product::class)->name('products');
+    Route::get('products', Products::class)->name('products');
+
+    Route::get('users', Users::class)->name('users');
 
 });
