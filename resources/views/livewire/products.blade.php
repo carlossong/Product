@@ -5,34 +5,13 @@
                 <h1 class="font-semibold text-4xl text-gray-500 px-4 py-2">
                     Products
                 </h1>
-                <x-button.primary>
+                <x-button.primary wire:click='newProduct'>
                     <div class="flex items-center space-x-2">
                         <x-icon.plus class="w-5 h-5"></x-icon.plus>
                         <span>New Product</span>
                     </div>
                 </x-button.primary>
             </div>
-
-            <x-jet-dialog-modal wire:model='openModalCreate'>
-                <x-slot name="title">
-                    {{ __('New Product') }}
-                </x-slot>
-
-                <x-slot name="content">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum natus nemo doloremque. Sapiente excepturi quae, ad ea porro neque magni tempore omnis praesentium alias, totam perspiciatis! Totam maiores modi unde!</p>
-                </x-slot>
-
-                <x-slot name="footer">
-                    <x-jet-secondary-button>
-                        {{ __('Cancel') }}
-                    </x-jet-secondary-button>
-
-                    <x-jet-button class="ml-3" wire:click="deleteUser" wire:loading.attr="disabled">
-                        {{ __('Save') }}
-                    </x-jet-button>
-                </x-slot>
-            </x-jet-dialog-modal>
-
             <div class="rounded-xl overflow-hidden shadow bg-white">
                 <table class="min-w-full divide-y divide-gray-400 w-full">
                     <thead>
@@ -102,5 +81,53 @@
             </div>
         </div>
     </div>
+
+    <!-- New Product Modal -->
+    <x-jet-dialog-modal wire:model="openModalCreate">
+        <x-slot name="title">
+            {{ __('New Product Form') }}
+        </x-slot>
+
+        <x-slot name="content">
+
+            <div class="space-y-4">
+
+                <!-- Name -->
+            <div class="mt-2">
+                <x-jet-label for="form.name" value="{{ __('Name') }}" />
+                <x-jet-input id="form.name" type="text" class="block w-full" wire:model.defer="form.name" autocomplete="form.name" placeholder="Product name" />
+                <x-jet-input-error for="form.name" class="mt-2" />
+            </div>
+
+            <!-- Price -->
+            <div class="mt-2">
+                <x-jet-label for="form.price" value="{{ __('Price') }}" />
+                <x-jet-input id="form.price" type="number" step="1" min="0" class="block w-full" wire:model.defer="form.price" autocomplete="form.price" placeholder="Product price" />
+                <x-jet-input-error for="form.price" class="mt-2" />
+            </div>
+
+            <!-- Description -->
+            <div class="mt-2">
+                <x-jet-label for="form.description" value="{{ __('Description') }}" />
+                <textarea rows="3" id="form.description" class="w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" wire:model.defer="form.description" autocomplete="form.description" placeholder="Product description"></textarea>
+                <x-jet-input-error for="form.description" class="mt-2" />
+            </div>
+
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$toggle('openModalCreate')" wire:loading.attr="disabled">
+                {{ __('Cancel') }}
+            </x-jet-secondary-button>
+
+            <x-button.primary class="ml-3" wire:click="save" wire:loading.attr="disabled">
+                {{ __('Save') }}
+            </x-button.primary>
+
+            </div>
+
+        </x-slot>
+    </x-jet-dialog-modal>
+
 </div>
 
