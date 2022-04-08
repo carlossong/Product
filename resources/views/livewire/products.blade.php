@@ -2,9 +2,15 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="flex items-center justify-between mr-2">
-                <h1 class="font-semibold text-4xl text-gray-500 px-4 py-2">
-                    Products
-                </h1>
+                @if (session()->has('message'))
+                    <h1 class="font-semibold text-4xl text-green-600 px-4 py-2">
+                        {{ session('message') }}
+                    </h1>
+                @else
+                    <h1 class="font-semibold text-4xl text-gray-500 px-4 py-2">
+                        {{__('Products')}}
+                    </h1>
+                @endif
                 <x-button.primary wire:click='newProduct'>
                     <div class="flex items-center space-x-2">
                         <x-icon.plus class="w-5 h-5"></x-icon.plus>

@@ -39,6 +39,7 @@ class Products extends Component
         $this->validate();
         $this->form->save();
         $this->openModalCreate = false;
+        session()->flash('message', 'Successfully!');
     }
 
     public function edit(Product $product)
@@ -59,6 +60,7 @@ class Products extends Component
     {
         $this->productToRemove->delete();
         $this->openModalDelete = false;
+        session()->flash('message', 'Successfully!');
     }
 
     public function render()
